@@ -1,0 +1,23 @@
+fit <- lm(iq.data$ppvt~iq.data$momage)
+plot(iq.data$momage, iq.data$ppvt, xlab="Mother's Age", ylab = "Child Test Score", pch=20)
+curve (coef(fit)[1]+coef(fit)[2]*x, add=TRUE)
+display(fit)
+resid <- fit$residuals
+sd.resid <- sd(resid)
+plot (iq.data$momage, resid, ylab="Residuals", pch=20)
+abline (sd.resid,0,lty=2)
+abline(0,0)
+abline (-sd.resid,0,lty=2)
+
+fit2 <- lm(iq.data$ppvt~iq.data$momage + iq.data$educ_cat)
+colors <- as.factor(iq.data$educ_cat[])
+plot(iq.data$educ_cat, iq.data$ppvt, xlab="Education", ylab = "Child Test Score", col=colors, pch=20)
+#plot(iq.data$educ_cat, iq.data$educ_cat, add=TRUE)
+curve (coef(fit)[1]+coef(fit)[2]*x, add=TRUE)
+display(fit2)
+
+fit3 <- lm(iq.data$ppvt~iq.data$momage + iq.data$educ_cat + iq.data$momage:iq.data$educ_cat)
+colors <- as.factor(iq.data$educ_cat[])
+plot(iq.data$momage, iq.data$ppvt, xlab="Education", ylab = "Child Test Score", col=colors, pch=20)
+curve (coef(fit3)[1]+coef(fit3)[4]*x, add=TRUE)
+display(fit3)
