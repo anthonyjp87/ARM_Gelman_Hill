@@ -54,12 +54,29 @@ display(fit4)
 scores.new <- fit4$coef[1] + fit4$coef[2]*iq.data$mom_HS + fit4$coef[3]*iq.data$momage
 res <- (iq.data$ppvt - scores.new)
 a <- sqrt(var(res))
-print(a)
 plot(scores.new,res,pch=20)
 abline(h=0)
 abline(h=a, lty=2)
 abline(h=-a, lty=2)
 
-x4.new <- data.frame(iq.data$mom_HS==0,iq.data$momage==27)
-x4.predict <- predict(fit4, x4.new, interval = "prediction", level = 0.95)
+
+iq.data$mom_HS <- ifelse (iq.data$educ_cat<3, 0, 1)
+fit4 <- lm(ppvt~mom_HS + momage, data=iq.data)
+colors <- ifelse (iq.data$mom_HS==1, "black", "gray")
+plot(iq.data$momage, iq.data$ppvt, main= "Black = HS, Grey = No HS", xlab="Mother Age", ylab="Child test score", col=colors, pch=20)
+curve (cbind (1, 1, x) %*% coef(fit4), add=TRUE, col="black")
+curve (cbind (1, 0, x) %*% coef(fit4), add=TRUE, col="gray")
+display(fit4)
+momage.mean <- mean(iq.data$momage)
+momage.sd <- sd(iq.data$momage)
+
+mom_HS.rate<-sum(mom_HS)/400
+print(mom_HS.rate)
+mom_HS <- rbinom(400, 1, mom_HS.rate)
+momage <- rnorm(400, mean=momage.mean, sd=momage.sd)
+x4.new <- data.frame(mom_HS,momage)
+x4.predict <- predict(fit4, x4.new, level = 0.95)
+#print(x4.predict)
+
+plot(momage,x4.predict)
 
