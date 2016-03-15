@@ -1,9 +1,17 @@
 
 
-
-fit <- lm(iq.data$ppvt~iq.data$momage)
+n.sims <-100
+fit <- lm(ppvt~momage, data = iq.data)
 plot(iq.data$momage, iq.data$ppvt, xlab="Mother's Age", ylab = "Child Test Score", pch=20)
 curve (coef(fit)[1]+coef(fit)[2]*x, add=TRUE)
+fit.sim <- sim(fit, n.sims)
+print(fit.sim)
+print(fit.sim$coef)
+for (i in 1:10){
+  curve(fit.sim$coef[i,1]+fit.sim$coef[i,2]*x, add=TRUE, col="gray")
+}
+
+
 display(fit)
 resid <- fit$residuals
 sd.resid <- sd(resid)
@@ -11,6 +19,10 @@ plot (iq.data$momage, resid, ylab="Residuals", pch=20)
 abline (sd.resid,0,lty=2)
 abline(0,0)
 abline (-sd.resid,0,lty=2)
+
+
+
+
 
 fit2 <- lm(iq.data$ppvt~iq.data$momage + iq.data$educ_cat)
 colors <- as.factor(iq.data$educ_cat[])
@@ -79,4 +91,5 @@ x4.predict <- predict(fit4, x4.new, level = 0.95)
 #print(x4.predict)
 
 plot(momage,x4.predict)
+
 
