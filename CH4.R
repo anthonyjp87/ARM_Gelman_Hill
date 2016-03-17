@@ -68,14 +68,16 @@ qb <- quantile(pd$hc, probs= c(.05))
 hc1.f <- ifelse(pd$hc<qt,pd$nox, NA)
 hc.f <- ifelse(hc1.f>qb,hc1.f, NA)
 hc.f.log<-log(hc.f)
+z.hc.f <-(hc.f-mean(hc.f, na.rm=TRUE)/sd(hc.f,na.rm = TRUE))
 z.hc.f.log <-(hc.f.log-mean(hc.f.log, na.rm=TRUE)/sd(hc.f.log,na.rm = TRUE))
 
 #LM w/HC
 fit.hc.nox <- lm(pd$mort~ pd$hc+ pd$nox)
 display(fit.hc.nox)
 
-fit.hc.nox.logmort <- lm(log.mort~ hc.f.log+ log.f.nox)
-display(fit.hc.nox.logmort)
+
+fit.zhc.logmort <- lm(log.mort~ z.hc.f.log)
+display(fit.zhc.logmort)
 
 # PREC   Average annual precipitation in inches
 # JANT   Average January temperature in degrees F
