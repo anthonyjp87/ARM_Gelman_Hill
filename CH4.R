@@ -73,11 +73,15 @@ z.hc.f.log <-(hc.f.log-mean(hc.f.log, na.rm=TRUE)/sd(hc.f.log,na.rm = TRUE))
 
 #LM w/HC
 fit.hc.nox <- lm(pd$mort~ pd$hc+ pd$nox)
-display(fit.hc.nox)
-
+# display(fit.hc.nox)
 
 fit.zhc.logmort <- lm(log.mort~ z.hc.f.log)
-display(fit.zhc.logmort)
+# display(fit.zhc.logmort)
+
+so2.log <- log(pd$so2)
+fit.all <- lm(mort~so2+nox+hc, data=pd)
+display(fit.all)
+
 
 # PREC   Average annual precipitation in inches
 # JANT   Average January temperature in degrees F
