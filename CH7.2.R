@@ -15,5 +15,8 @@ display(fit1)
 plot(f.nox, pd$mort, xlab ="Relative NOX Potential", ylab= "Age Adj. Mortality Rate per 100k", pch = 20)
 curve (coef(fit1)[1]+coef(fit1)[2]*x, add=TRUE)
 
-xnew <- data.frame(f.nox=12)
+x.new <- data.frame(f.nox=12)
+pred.interval <- predict (fit1, x.new, interval="prediction", 
+                          level=.95)
 
+print(pred.interval)
