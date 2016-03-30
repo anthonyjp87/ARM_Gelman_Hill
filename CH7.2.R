@@ -11,12 +11,12 @@ f.nox <- ifelse(f.nox1>qb,f.nox1, NA)
 
 #simple model
 fit1 <- lm(pd$mort~f.nox, data = pd)
-display(fit1)
+# display(fit1)
 plot(f.nox, pd$mort, xlab ="Relative NOX Potential", ylab= "Age Adj. Mortality Rate per 100k", pch = 20)
 curve (coef(fit1)[1]+coef(fit1)[2]*x, add=TRUE)
 
-x.new <- data.frame(f.nox=12)
+#setting f.nox in data frame and using it for predict interval
+x.new <- data.frame(f.nox=200)
 pred.interval <- predict (fit1, x.new, interval="prediction", 
                           level=.95)
-
 print(pred.interval)
