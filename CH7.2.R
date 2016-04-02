@@ -48,7 +48,8 @@ height.coef.log <- sim.log@coef[,2]
 print(mean (height.coef.log))
 print(sd (height.coef))
 print(quantile ((height.coef.log), c(.025, .975)))
-
-
-
-
+print(height.coef.log)
+hist(height.coef.log)
+b_mean <- mean(height.coef.log)
+b_sd <- sd(height.coef)
+curve(dnorm(x, mean=b_mean, sd=b_sd), add= TRUE)
