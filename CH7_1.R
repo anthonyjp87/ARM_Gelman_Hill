@@ -20,5 +20,5 @@ print(summary(j))
 print(summary(p))
 
 print(sd(j))
-plot(jitter(j, factor=10),jitter(p,factor = 150),pch=20)
+plot(jitter(j, factor=10),jitter(p,factor = 150), xlab="Number of Tries", ylab= "Win percentage", pch=20)
 abline(ppp,0)

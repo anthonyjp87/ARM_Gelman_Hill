@@ -2,7 +2,7 @@
 pd <- read.dta("pollution.dta")
 
 #Scater Plot Mortality vs. Nitric Oxide 
-# plot(pd$nox, pd$mort, pch = 20)
+plot(pd$nox, pd$mort, pch = 20)
 qt <- quantile(pd$nox, probs= c(.95))
 qb <- quantile(pd$nox, probs= c(.05))
 
