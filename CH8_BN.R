@@ -1,7 +1,8 @@
+# In this scenario I use Fake-Data Simulation, but with GLM Binomial Data. 
+
 p<-.4
 n_trials<-1000
 x<-rep(1,n_trials)
-
 
 #Simulate data, the stochastic element from rbin
 ybin <- rbinom(n_trials, 1, p)
